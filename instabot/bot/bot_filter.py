@@ -10,13 +10,14 @@ from . import delay
 # their medias anymore
 def skippedlist_adder(self, user_id):
     # user_id = self.convert_to_user_id(user_id)
-    skipped = self.read_list_from_file("skipped.txt")
+    self.logger.info('Skipping user %s for %s' % (str(user_id),self.user_id))
+    skipped = self.read_list_from_file(str(self.user_id) + "-skipped.txt")
     if user_id not in skipped:
-        with open('skipped.txt', "a") as file:
-            print('\n\033[93m Add user_id %s to skippedlist : skipped.txt ... \033[0m' % user_id)
+        with open(str(self.user_id) + '-skipped.txt', "a") as file:
+            print('\n\033[93m Add user_id %s to skippedlist : %s-skipped.txt ... \033[0m' % (user_id, self.user_id))
             # Append user_is to the end of skipped.txt
             file.write(str(user_id) + "\n")
-            print('Done adding user_id to skipped.txt')
+            print('Done adding user_id to %s-skipped.txt' % self.user_id)
     return
 
 
@@ -147,10 +148,10 @@ def check_user(self, user_id, filter_closed_acc=False):
             # Log to Console
             print('\n info : \033[91m is PRIVATE , !!! \033[0m')
             return False
-    if "is_business" in user_info:
-        if user_info["is_business"]:
+    if "is_business2" in user_info:
+        if user_info["is_business2"]:
             # Log to Console
-            print('\n info : \033[91m is BUSINESS , Skipping \033[0m')
+            print('\n info : \033[91m is BUSINESS2 , Skipping \033[0m')
             skippedlist_adder(self, user_id)  # Add user_id to skipped.txt
             return False
     if "is_verified" in user_info:

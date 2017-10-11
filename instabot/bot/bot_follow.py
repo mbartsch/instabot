@@ -18,7 +18,7 @@ def follow(self, user_id):
             # Log to console
             print(
                 '\n\033[92m Writing user_id to file : followed.txt ... \033[0m')
-            with open('followed.txt', 'a') as file:  # Appending user_id to the followed.txt
+            with open(str(self.user_id) + '-followed.txt', 'a') as file:  # Appending user_id to the followed.txt
                 # Appending user_id to the followed.txt
                 file.write(str(user_id) + "\n")
             return True
@@ -34,9 +34,9 @@ def follow_users(self, user_ids):
         return
     self.logger.info("Going to follow %d users." % len(user_ids))
     followed_list = self.read_list_from_file(
-        "followed.txt")   # Read followed.txt file
+        str(self.user_id) + "-followed.txt")   # Read followed.txt file
     skipped_list = self.read_list_from_file(
-        "skipped.txt")  # Read skipped.txt file
+        str(self.user_id) + "-skipped.txt")  # Read skipped.txt file
     print('\n\033[92m Going to follow %s user_ids ...\033[0m' %
           len(user_ids))  # Log to console
     # remove skipped and followed list from user_ids
